@@ -15,6 +15,7 @@ import {
   Checkbox,
   FormGroup,
   FormControlLabel,
+  Radio,
 } from "@mui/material";
 
 export default function App() {
@@ -61,6 +62,7 @@ export default function App() {
       price: selectedSubscription.price,
       save: selectedSubscription.save,
       selectedDomain: "", // Clear selected domain when changing subscription
+      selectedSubscriptionId: selectedSubscription.id, // Update the selected subscription ID
     });
   };
 
@@ -127,11 +129,22 @@ export default function App() {
         {subscriptionPlan.map((subscription) => (
           <Card
             key={subscription.id}
-            sx={{ boxShadow: 0, mb: 1 }}
+            sx={{
+              boxShadow: 0,
+              borderRadius: 0,
+              cursor: "pointer",
+              backgroundColor:
+                formData.selectedSubscriptionId === subscription.id
+                  ? "#eee"
+                  : "white",
+            }}
             onClick={() => selectSubscriptionBtn(subscription)}
           >
             <CardContent>
               <Box sx={{ display: "flex" }}>
+                <Radio
+                  checked={formData.selectedSubscriptionId === subscription.id}
+                />
                 <Box sx={{ flex: 1 }}>
                   <Typography variant="body1" fontWeight="bold">
                     {subscription.subscriptionLength}
