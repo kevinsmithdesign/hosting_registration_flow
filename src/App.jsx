@@ -12,6 +12,9 @@ import {
   Button,
   Box,
   Chip,
+  Checkbox,
+  FormGroup,
+  FormControlLabel,
 } from "@mui/material";
 
 export default function App() {
@@ -173,11 +176,12 @@ export default function App() {
             <Card>
               <CardContent>
                 <Box sx={{ display: "flex", mb: 1 }}>
-                  <Box sx={{ flex: 1, mr: 2 }}>
+                  <Box sx={{ flex: 1 }}>
                     <Stack>
                       <TextField
                         onChange={(e) => setDomainName(e.target.value)}
                         value={domainName}
+                        size="small"
                         onKeyDown={(e) => {
                           if (e.key === "Enter") {
                             searchDomainsBtn();
@@ -190,11 +194,14 @@ export default function App() {
                     Search Domains
                   </Button> */}
                 </Box>
-                <Typography mb={2}>
-                  Add Domain Privacy to each domain for $14.95 per year. What's
-                  this?
-                </Typography>
 
+                <FormGroup>
+                  <FormControlLabel
+                    control={<Checkbox />}
+                    label="Add Domain Privacy to each domain for $14.95 per year.
+                    "
+                  />
+                </FormGroup>
                 {showAvailableDomains && (
                   <Box>
                     {availableDomains.map((possibleDomain, index) => (
@@ -282,6 +289,21 @@ export default function App() {
                   <Typography variant="body1">
                     {add.addOnDescription}
                   </Typography>
+                  <Box sx={{ display: "flex" }}>
+                    <Box sx={{ flex: 1 }}>
+                      <FormGroup>
+                        <FormControlLabel control={<Checkbox />} label="Add" />
+                      </FormGroup>
+                    </Box>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <Typography>/year</Typography>
+                    </Box>
+                  </Box>
                 </CardContent>
               </Card>
             ))}
@@ -332,15 +354,148 @@ export default function App() {
 
         <Grid container spacing={4}>
           <Grid item xs={8}>
-            <Card>
+            <Card sx={{ mb: 4 }}>
               <CardContent>
                 <Typography variant="h6" fontWeight="bold" mb={2}>
                   Account Information
                 </Typography>
-                <TextField />
-                <TextField />
-                <TextField />
-                <TextField />
+                <Stack
+                  display="flex"
+                  flexDirection={{ xs: "column", md: "row" }}
+                  gap={2}
+                  mb={2}
+                >
+                  <TextField
+                    id="outlined-basic"
+                    label="Outlined"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                  />
+                  <TextField
+                    id="outlined-basic"
+                    label="Outlined"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                  />
+                </Stack>
+                <Stack
+                  display="flex"
+                  flexDirection={{ xs: "column", md: "row" }}
+                  gap={2}
+                >
+                  <TextField
+                    id="outlined-basic"
+                    label="Outlined"
+                    variant="outlined"
+                    size="small"
+                    sx={{ width: "70%" }}
+                  />
+                  <TextField
+                    id="outlined-basic"
+                    label="Outlined"
+                    variant="outlined"
+                    size="small"
+                    sx={{ width: "30%" }}
+                  />
+                </Stack>
+              </CardContent>
+            </Card>
+            <Card sx={{ mb: 4 }}>
+              <CardContent>
+                <Typography variant="h6" fontWeight="bold" mb={2}>
+                  Billing Address
+                </Typography>
+                <Stack
+                  display="flex"
+                  flexDirection={{ xs: "column", md: "row" }}
+                  gap={2}
+                  mb={2}
+                >
+                  <TextField
+                    id="outlined-basic"
+                    label="Outlined"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                  />
+                  <TextField
+                    id="outlined-basic"
+                    label="Outlined"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                  />
+                </Stack>
+                <Stack
+                  display="flex"
+                  flexDirection={{ xs: "column", md: "row" }}
+                  gap={2}
+                >
+                  <TextField
+                    id="outlined-basic"
+                    label="Outlined"
+                    variant="outlined"
+                    size="small"
+                    sx={{ width: "70%" }}
+                  />
+                  <TextField
+                    id="outlined-basic"
+                    label="Outlined"
+                    variant="outlined"
+                    size="small"
+                    sx={{ width: "30%" }}
+                  />
+                </Stack>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" fontWeight="bold" mb={2}>
+                  Payment Information
+                </Typography>
+                <Stack
+                  display="flex"
+                  flexDirection={{ xs: "column", md: "row" }}
+                  gap={2}
+                  mb={2}
+                >
+                  <TextField
+                    id="outlined-basic"
+                    label="Outlined"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                  />
+                  <TextField
+                    id="outlined-basic"
+                    label="Outlined"
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                  />
+                </Stack>
+                <Stack
+                  display="flex"
+                  flexDirection={{ xs: "column", md: "row" }}
+                  gap={2}
+                >
+                  <TextField
+                    id="outlined-basic"
+                    label="Outlined"
+                    variant="outlined"
+                    size="small"
+                    sx={{ width: "70%" }}
+                  />
+                  <TextField
+                    id="outlined-basic"
+                    label="Outlined"
+                    variant="outlined"
+                    size="small"
+                    sx={{ width: "30%" }}
+                  />
+                </Stack>
               </CardContent>
             </Card>
           </Grid>
