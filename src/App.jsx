@@ -11,6 +11,7 @@ import {
   Divider,
   Button,
   Box,
+  Chip,
 } from "@mui/material";
 
 export default function App() {
@@ -84,11 +85,41 @@ export default function App() {
     }));
   };
 
+  const addOns = [
+    {
+      id: 1,
+      addOnTitle: "Title One",
+      addOnDescription:
+        "HackAlert is a monitoring service that checks your website daily and immediately notifies you if your website has been hacked or injected with malicious code.",
+    },
+    {
+      id: 2,
+      addOnTitle: "Title Two",
+      addOnDescription:
+        "HackAlert is a monitoring service that checks your website daily and immediately notifies you if your website has been hacked or injected with malicious code.",
+    },
+    {
+      id: 3,
+      addOnTitle: "Title Three",
+      addOnDescription:
+        "HackAlert is a monitoring service that checks your website daily and immediately notifies you if your website has been hacked or injected with malicious code.",
+    },
+  ];
+
   return (
     <div className="App">
       <Container>
         <br />
         <br />
+
+        <Box sx={{ textAlign: "center", mb: 4 }}>
+          <Typography variant="h4" fontWeight="bold">
+            Web Hosting Subscription
+          </Typography>
+          <Typography variant="body1" color="textSecondary">
+            Web Hosting Subscription
+          </Typography>
+        </Box>
 
         {subscriptionPlan.map((subscription) => (
           <Card
@@ -107,10 +138,18 @@ export default function App() {
                   </Typography>
                 </Box>
                 <Box>
-                  <Typography variant="body1" fontWeight="bold">
+                  <Typography
+                    variant="body1"
+                    fontWeight="bold"
+                    sx={{ textAlign: "right" }}
+                  >
                     {subscription.price}
                   </Typography>
-                  <Typography>{subscription.save}</Typography>
+                  <Chip
+                    label={subscription.save}
+                    color="primary"
+                    size="small"
+                  />
                 </Box>
               </Box>
             </CardContent>
@@ -119,6 +158,15 @@ export default function App() {
 
         <br />
         <br />
+
+        <Box sx={{ textAlign: "center", mb: 4 }}>
+          <Typography variant="h4" fontWeight="bold">
+            Create domain name
+          </Typography>
+          <Typography variant="body1" color="textSecondary">
+            Search for a domain or enter one you already own.
+          </Typography>
+        </Box>
 
         <Grid container spacing={4}>
           <Grid item xs={8}>
@@ -176,6 +224,123 @@ export default function App() {
                     ))}
                   </Box>
                 )}
+              </CardContent>
+            </Card>
+          </Grid>
+          <Grid item xs={4}>
+            <Card>
+              <CardContent>
+                <div>
+                  <Typography variant="h6" fontWeight="bold" mb={2}>
+                    Your Order
+                  </Typography>
+                  <Box sx={{ mb: 1 }}>
+                    <Box sx={{ display: "flex" }}>
+                      <Box sx={{ flex: 1 }}>
+                        <Typography>Shared Hosting</Typography>
+                      </Box>
+                      <Typography>{formData.price}</Typography>
+                    </Box>
+                    <Typography color="textSecondary">
+                      {formData.subscriptionLength} Subscription
+                    </Typography>
+                  </Box>
+                  <Divider />
+
+                  {formData.selectedDomain && (
+                    <Box sx={{ my: 2 }}>
+                      <Typography mb={1}>{formData.selectedDomain}</Typography>
+                      <Divider />
+                    </Box>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+
+        <br />
+        <br />
+
+        <Box sx={{ textAlign: "center", mb: 4 }}>
+          <Typography variant="h4" fontWeight="bold">
+            Add Additional Services
+          </Typography>
+          <Typography variant="body1" color="textSecondary">
+            Enchance your websites with the following
+          </Typography>
+        </Box>
+
+        <Grid container spacing={4}>
+          <Grid item xs={8}>
+            {addOns.map((add) => (
+              <Card sx={{ mb: 3 }}>
+                <CardContent>
+                  <Typography variant="h6" fontWeight="bold" mb={2}>
+                    {add.addOnTitle}
+                  </Typography>
+                  <Typography variant="body1">
+                    {add.addOnDescription}
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
+          </Grid>
+          <Grid item xs={4}>
+            <Card>
+              <CardContent>
+                <div>
+                  <Typography variant="h6" fontWeight="bold" mb={2}>
+                    Your Order
+                  </Typography>
+                  <Box sx={{ mb: 1 }}>
+                    <Box sx={{ display: "flex" }}>
+                      <Box sx={{ flex: 1 }}>
+                        <Typography>Shared Hosting</Typography>
+                      </Box>
+                      <Typography>{formData.price}</Typography>
+                    </Box>
+                    <Typography color="textSecondary">
+                      {formData.subscriptionLength} Subscription
+                    </Typography>
+                  </Box>
+                  <Divider />
+
+                  {formData.selectedDomain && (
+                    <Box sx={{ my: 2 }}>
+                      <Typography mb={1}>{formData.selectedDomain}</Typography>
+                      <Divider />
+                    </Box>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+
+        <br />
+        <br />
+
+        <Box sx={{ textAlign: "center", mb: 4 }}>
+          <Typography variant="h4" fontWeight="bold">
+            Checkout
+          </Typography>
+          <Typography variant="body1" color="textSecondary">
+            Account, Billing Address, Payment
+          </Typography>
+        </Box>
+
+        <Grid container spacing={4}>
+          <Grid item xs={8}>
+            <Card>
+              <CardContent>
+                <Typography variant="h6" fontWeight="bold" mb={2}>
+                  Account Information
+                </Typography>
+                <TextField />
+                <TextField />
+                <TextField />
+                <TextField />
               </CardContent>
             </Card>
           </Grid>
