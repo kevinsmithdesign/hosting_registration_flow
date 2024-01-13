@@ -1,5 +1,12 @@
 import React, { useState } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 
 import "./App.css";
 import {
@@ -19,8 +26,10 @@ import {
   FormControlLabel,
   Radio,
 } from "@mui/material";
+import InfoIcon from "@mui/icons-material/Info";
 
 export default function App() {
+  // const navigate = useNavigate();
   const subscriptionPlan = [
     {
       id: 2,
@@ -113,8 +122,15 @@ export default function App() {
     },
   ];
 
+  const [addDomainPrivacy, setAddDomainPrivacy] = useState(false);
+
+  const handleAddDomainPrivacyChange = (event) => {
+    setAddDomainPrivacy(event.target.checked);
+  };
+
   return (
     <div className="App">
+      <Box sx={{ background: "#1976d2", height: "60px" }}></Box>
       <Container>
         <br />
         <br />
@@ -133,55 +149,89 @@ export default function App() {
                       Web Hosting Subscription
                     </Typography>
                   </Box>
-                  {subscriptionPlan.map((subscription) => (
-                    <Card
-                      key={subscription.id}
-                      sx={{
-                        boxShadow: 0,
-                        borderRadius: 0,
-                        cursor: "pointer",
-                        backgroundColor:
-                          formData.selectedSubscriptionId === subscription.id
-                            ? "#eee"
-                            : "white",
-                      }}
-                      onClick={() => selectSubscriptionBtn(subscription)}
-                    >
-                      <CardContent>
-                        <Box sx={{ display: "flex" }}>
-                          <Radio
-                            checked={
-                              formData.selectedSubscriptionId ===
-                              subscription.id
-                            }
-                          />
-                          <Box sx={{ flex: 1 }}>
-                            <Typography variant="body1" fontWeight="bold">
-                              {subscription.subscriptionLength}
-                            </Typography>
-                            <Typography variant="body2" color="textSecondary">
-                              {subscription.priceBreakdown}
-                            </Typography>
-                          </Box>
-                          <Box>
-                            <Typography
-                              variant="body1"
-                              fontWeight="bold"
-                              sx={{ textAlign: "right" }}
-                            >
-                              {subscription.price}
-                            </Typography>
-                            <Chip
-                              label={subscription.save}
-                              color="primary"
-                              size="small"
+                  <Box mb={3}>
+                    {subscriptionPlan.map((subscription) => (
+                      <Card
+                        key={subscription.id}
+                        sx={{
+                          boxShadow: 0,
+                          borderRadius: 0,
+                          cursor: "pointer",
+                          maxWidth: "480px",
+                          margin: "auto",
+                          backgroundColor:
+                            formData.selectedSubscriptionId === subscription.id
+                              ? "#eee"
+                              : "white",
+                        }}
+                        onClick={() => selectSubscriptionBtn(subscription)}
+                      >
+                        <CardContent>
+                          <Box sx={{ display: "flex" }}>
+                            <Radio
+                              checked={
+                                formData.selectedSubscriptionId ===
+                                subscription.id
+                              }
                             />
+                            <Box sx={{ flex: 1 }}>
+                              <Typography variant="body1" fontWeight="bold">
+                                {subscription.subscriptionLength}
+                              </Typography>
+                              <Typography variant="body2" color="textSecondary">
+                                {subscription.priceBreakdown}
+                              </Typography>
+                            </Box>
+                            <Box>
+                              <Typography
+                                variant="body1"
+                                fontWeight="bold"
+                                sx={{ textAlign: "right" }}
+                              >
+                                {subscription.price}
+                              </Typography>
+                              <Chip
+                                label={subscription.save}
+                                color="primary"
+                                size="small"
+                              />
+                            </Box>
                           </Box>
-                        </Box>
-                      </CardContent>
-                    </Card>
-                  ))}
-                  <Link to="/create-domain">Continue</Link>
+                        </CardContent>
+                      </Card>
+                    ))}
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                      <InfoIcon color="info" sx={{ mr: 1 }} />
+                      <Typography>
+                        Plan auto-renews January 12, 2022 at $99.00 a year
+                      </Typography>
+                    </Box>
+                    <Link
+                      to="/create-domain"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Button variant="contained" color="primary">
+                        Continue
+                      </Button>
+                    </Link>
+                    <Box sx={{ maxWidth: "480px" }}>
+                      <Typography variant="body2" color="textSecondary" my={2}>
+                        Introductory prices apply to the first term. All plans
+                        and products automatically renew unless you cancel. The
+                        renewal will be for the same term length and at the
+                        regular rates reflected in your Billing Section
+                      </Typography>
+                    </Box>
+                  </Box>
                 </>
               }
             />
@@ -206,6 +256,7 @@ export default function App() {
                             <Box sx={{ flex: 1 }}>
                               <Stack>
                                 <TextField
+                                  placeholder="Search domain names"
                                   onChange={(e) =>
                                     setDomainName(e.target.value)
                                   }
@@ -224,8 +275,9 @@ export default function App() {
                           <FormGroup>
                             <FormControlLabel
                               control={<Checkbox />}
-                              label="Add Domain Privacy to each domain for $14.95 per year.
-                    "
+                              checked={addDomainPrivacy}
+                              onChange={handleAddDomainPrivacyChange}
+                              label="Add Domain Privacy to each domain for $14.95 per year."
                             />
                           </FormGroup>
                           {showAvailableDomains && (
@@ -295,8 +347,24 @@ export default function App() {
                                 <Divider />
                               </Box>
                             )}
+                            {addDomainPrivacy && (
+                              <Box sx={{ my: 2 }}>
+                                <Typography mb={1}>Domain Privacy</Typography>
+                                <Typography>$14.95</Typography>
+                                <Divider />
+                              </Box>
+                            )}
                           </div>
-                          <Link to="/additional-services">Continue</Link>
+                          <Box sx={{ textAlign: "center", my: 2 }}>
+                            <Link
+                              to="/additional-services"
+                              style={{
+                                textDecoration: "none",
+                              }}
+                            >
+                              <Button variant="contained">Continue</Button>
+                            </Link>
+                          </Box>
                         </CardContent>
                       </Card>
                     </Grid>
@@ -375,6 +443,13 @@ export default function App() {
                                 <Typography mb={1}>
                                   {formData.selectedDomain}
                                 </Typography>
+                                <Divider />
+                              </Box>
+                            )}
+                            {addDomainPrivacy && (
+                              <Box sx={{ my: 2 }}>
+                                <Typography mb={1}>Domain Privacy</Typography>
+                                <Typography>$14.95</Typography>
                                 <Divider />
                               </Box>
                             )}
@@ -572,6 +647,13 @@ export default function App() {
                                 <Typography mb={1}>
                                   {formData.selectedDomain}
                                 </Typography>
+                                <Divider />
+                              </Box>
+                            )}
+                            {addDomainPrivacy && (
+                              <Box sx={{ my: 2 }}>
+                                <Typography mb={1}>Domain Privacy</Typography>
+                                <Typography>$14.95</Typography>
                                 <Divider />
                               </Box>
                             )}
