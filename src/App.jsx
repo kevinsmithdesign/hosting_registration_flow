@@ -28,6 +28,9 @@ import {
 } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
 
+import Header from "./components/Header";
+import SubscriptionLength from "./pages/SubscriptionLength";
+
 export default function App() {
   // const navigate = useNavigate();
   const subscriptionPlan = [
@@ -55,11 +58,12 @@ export default function App() {
   ];
 
   const [formData, setFormData] = useState({
-    subscriptionLength: "",
-    priceBreakdown: "",
-    price: "",
-    save: "",
-    selectedDomain: "", // New property to store the selected domain
+    subscriptionLength: subscriptionPlan[2].subscriptionLength,
+    priceBreakdown: subscriptionPlan[2].priceBreakdown,
+    price: subscriptionPlan[2].price,
+    save: subscriptionPlan[2].save,
+    selectedDomain: "",
+    selectedSubscriptionId: subscriptionPlan[2].id,
   });
 
   const [domainName, setDomainName] = useState("");
@@ -134,21 +138,16 @@ export default function App() {
       <Container>
         <br />
         <br />
-
         <BrowserRouter>
           <Routes>
             <Route
               path="/"
               element={
                 <>
-                  <Box sx={{ textAlign: "center", mb: 4 }}>
-                    <Typography variant="h4" fontWeight="bold">
-                      Web Hosting Subscription
-                    </Typography>
-                    <Typography variant="body1" color="textSecondary">
-                      Web Hosting Subscription
-                    </Typography>
-                  </Box>
+                  <Header
+                    title="Web Hosting Subscription"
+                    description="How long do you need web hosting?"
+                  />
                   <Box mb={3}>
                     {subscriptionPlan.map((subscription) => (
                       <Card
@@ -239,15 +238,10 @@ export default function App() {
               path="create-domain"
               element={
                 <>
-                  {" "}
-                  <Box sx={{ textAlign: "center", mb: 4 }}>
-                    <Typography variant="h4" fontWeight="bold">
-                      Create domain name
-                    </Typography>
-                    <Typography variant="body1" color="textSecondary">
-                      Search for a domain or enter one you already own.
-                    </Typography>
-                  </Box>
+                  <Header
+                    title="Create domain name"
+                    description="Search for a domain or enter one you already own."
+                  />
                   <Grid container spacing={4}>
                     <Grid item xs={8}>
                       <Card>
@@ -356,14 +350,27 @@ export default function App() {
                             )}
                           </div>
                           <Box sx={{ textAlign: "center", my: 2 }}>
-                            <Link
-                              to="/additional-services"
-                              style={{
-                                textDecoration: "none",
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              disabled={!formData.selectedDomain}
+                              onClick={() => {
+                                if (formData.selectedDomain) {
+                                  // Redirect to "/additional-services" when a domain is selected
+                                  // You can use your preferred method for navigation here
+                                  // For example, window.location.href or history.push
+                                  window.location.href = "/additional-services";
+                                } else {
+                                  // Handle the case when no domain is selected
+                                  // You can display a message or take appropriate action
+                                  alert(
+                                    "Please add a domain to the cart first."
+                                  );
+                                }
                               }}
                             >
-                              <Button variant="contained">Continue</Button>
-                            </Link>
+                              Continue
+                            </Button>
                           </Box>
                         </CardContent>
                       </Card>
@@ -376,15 +383,10 @@ export default function App() {
               path="additional-services"
               element={
                 <>
-                  <Box sx={{ textAlign: "center", mb: 4 }}>
-                    <Typography variant="h4" fontWeight="bold">
-                      Add Additional Services
-                    </Typography>
-                    <Typography variant="body1" color="textSecondary">
-                      Enchance your websites with the following
-                    </Typography>
-                  </Box>
-
+                  <Header
+                    title="Add Additional Services"
+                    description="Enchance your websites with the following"
+                  />
                   <Grid container spacing={4}>
                     <Grid item xs={8}>
                       {addOns.map((add) => (
@@ -466,15 +468,10 @@ export default function App() {
               path="checkout"
               element={
                 <>
-                  {" "}
-                  <Box sx={{ textAlign: "center", mb: 4 }}>
-                    <Typography variant="h4" fontWeight="bold">
-                      Checkout
-                    </Typography>
-                    <Typography variant="body1" color="textSecondary">
-                      Account, Billing Address, Payment
-                    </Typography>
-                  </Box>
+                  <Header
+                    title="Checkout"
+                    description="Account, Billing Address, Payment"
+                  />
                   <Grid container spacing={4}>
                     <Grid item xs={8}>
                       <Card sx={{ mb: 4 }}>
